@@ -30,9 +30,34 @@ function seleccionarAvatar(){
     }else{
         alert ("selecciona un avatar")
     }
+
+    seleccionarAvatarEnemigo()
+}
+// funcion aleatoria para jugada del enemigo
+
+function aleatoria(min,max){
+    return Math.floor(Math.random()*(max - min + 1) + min )
 }
 
-//manupulando el DOM
+function seleccionarAvatarEnemigo(){
+    let ataqueAleatorio = aleatoria(1,6)
+    let spanAvatarEnemigo = document.getElementById("avatar_enemigo")
+
+    if (ataqueAleatorio == 1){
+        spanAvatarEnemigo.innerHTML = "pez"
+    }else if (ataqueAleatorio == 2 ){
+        spanAvatarEnemigo.innerHTML = "arbol"
+    }else if (ataqueAleatorio == 3 ){
+        spanAvatarEnemigo.innerHTML = "fosforo"
+    }else if (ataqueAleatorio == 4 ){
+        spanAvatarEnemigo.innerHTML = "tiburon"
+    }else if (ataqueAleatorio == 5 ){
+        spanAvatarEnemigo.innerHTML = "tortuga"
+    }else if (ataqueAleatorio == 6 ){
+        spanAvatarEnemigo.innerHTML = "dragon"
+    }  
+}
+
 
 //escucha los eventos desde el html 
 window.addEventListener("load", iniciarJuego )
