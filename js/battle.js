@@ -7,18 +7,33 @@ let vidasEnemigo = 3
 
 //funcion que se carga una vez que carga el html
 function iniciarJuego(){
-    let botonAvatar = document.getElementById("boton-avatar")
-botonAvatar.addEventListener("click", seleccionarAvatar)
+    let sectionReiniciar = document.getElementById("reiniciar")
+    sectionReiniciar.style.display = 'none'
 
-let botonFuego = document.getElementById("boton-fuego")
-botonFuego.addEventListener('click',ataqueFuego)
-let botonAgua = document.getElementById("boton-agua")
-botonAgua.addEventListener('click',ataqueAgua)
-let botonTierra = document.getElementById("boton-tierra")
-botonTierra.addEventListener('click',ataqueTierra)
+    let sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque")
+    sectionSeleccionarAtaque.style.display = 'none'
+
+    let botonAvatar = document.getElementById("boton-avatar")
+    botonAvatar.addEventListener("click", seleccionarAvatar)
+    let botonFuego = document.getElementById("boton-fuego")
+    botonFuego.addEventListener('click',ataqueFuego)
+    let botonAgua = document.getElementById("boton-agua")
+    botonAgua.addEventListener('click',ataqueAgua)
+    let botonTierra = document.getElementById("boton-tierra")
+    botonTierra.addEventListener('click',ataqueTierra)
+
+    let botonReiniar = document.getElementById('boton-reiniciar')
+    botonReiniar.addEventListener('click', reiniciarJuego)
+
 }
 // se crea la variables con los avatares
 function seleccionarAvatar(){
+    let sectionSeleccionarAvatar = document.getElementById("seleccionar_avatar")
+    sectionSeleccionarAvatar.style.display = 'none'
+
+    let sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque")
+    sectionSeleccionarAtaque.style.display = 'block'
+
     let inputpez = document.getElementById("pez")
     let inputarbol = document.getElementById("arbol")
     let inputfosforo = document.getElementById("fosforo")
@@ -141,15 +156,28 @@ function mensajeFinal(resultadoFinal){
     let parrafo = document.createElement('p')
     parrafo.innerHTML = resultadoFinal
 
-    
     sectionMensajes.appendChild(parrafo)
-}
 
+    let botonAvatar = document.getElementById("boton-avatar")
+    botonAvatar.disabled = true
+    let botonFuego = document.getElementById("boton-fuego")
+    botonFuego.disabled = true
+    let botonAgua = document.getElementById("boton-agua")
+    botonAgua.disabled = true
+    let botonTierra = document.getElementById("boton-tierra")
+    botonTierra.disabled = true
+
+    let sectionReiniciar = document.getElementById("reiniciar")
+    sectionReiniciar.style.display = 'block'
+}
 // funcion aleatoria para jugada del enemigo
 function aleatoria(min,max){
     return Math.floor(Math.random()*(max - min + 1) + min )
 }
-
+// funcion reiniciar 
+function reiniciarJuego(){
+    location.reload()
+}
 
 
 
