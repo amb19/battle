@@ -6,55 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>battle</title>
     <script src="./js/battle.js"></script>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <h1>Battle🔥💧🌱</h1>
+    <section id="titulos">
+        <h1 class="titulo"> Battle 🔥💧🌱</h1>
+        <h2 class="subtitulo">Elige tu avatar</h2>
+    </section>
 
     <section id="seleccionar_avatar">
-        <h2>Elige tu avatar</h2>
+        <div class="avatars">
+            <label class="tarjeta-de-avatar" for="tiburon">
+                <p>Tiburon</p>
+                <img src="./img/tiburon.png" alt="Tiburon">
+            </label>  
+            <input type="radio" name="avatar" id="tiburon" />
 
-        <label for="pez">pez</label>
-        <input type="radio" name="avatar" id="pez" />
+            <label class="tarjeta-de-avatar" for="arbol">
+                <p>Arbol</p>
+                <img src="./img/arbol.png" alt="Arbol">
+            </label>
+            <input type="radio" name="avatar" id="arbol" />
 
-        <label for="arbol">arbol</label>
-        <input type="radio" name="avatar" id="arbol" />
-
-        <label for="fosforo">fosforo</label>
-        <input type="radio" name="avatar" id="fosforo" />
-
-        <label for="tiburon">tiburon</label>
-        <input type="radio" name="avatar" id="tiburon" />
-
-        <label for="tortuga">tortuga</label>
-        <input type="radio" name="avatar" id="tortuga" />
-
-        <label for="dragon">dragon</label>
-        <input type="radio" name="avatar" id="dragon" />
-   
-        <button id="boton-avatar">seleccionar</button>
+            <label class="tarjeta-de-avatar" for="dragon">
+                <p>Dragon</p>
+                <img src="./img/dragon.png" alt="Dragon">
+            </label>
+            <input type="radio" name="avatar" id="dragon" />
+        </div>
+        
+        <div>
+            <button id="boton-avatar">seleccionar</button>
+        </div>
     </section>
 
     <section id="seleccionar_ataque">
-        <h2>Elige tu ataque</h2>
+        <h2 class="subtitulo">Elige tu ataque:</h2>
+        <div>
+            <button id="boton-fuego" class="boton-de-ataque"> Fuego 🔥</button>
+            <button id="boton-agua"class="boton-de-ataque"> Agua 💧</button>
+            <button id="boton-tierra"class="boton-de-ataque"> Tierra 🌱</button>
+        </div>
 
-        <p>Tu avatar <span id="avatar_jugador"></span> tiene <span id="vidas-avatar">3</span> vidas</p>
-        <p>El avatar <span id="avatar_enemigo"></span> del enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+        <div>
+            
+
+            <section id="mensajes">
+                
+            </section>
         
-        <p>
-            <button id="boton-fuego"> Fuego 🔥</button>
-            <button id="boton-agua"> Agua 💧</button>
-            <button id="boton-tierra"> Tierra 🌱</button>
-        </p>
-    </section>
-
-    <section id="mensajes">
+            <section id="reiniciar">
+                <button id="boton-reiniciar">Reiniciar</button>
+            </section>
+        </div>
+        <div>
+            <p>Tu avatar <span id="avatar_jugador"></span> tiene <span id="vidas-avatar">3</span> vidas</p>
+            <p>El avatar <span id="avatar_enemigo"></span> del enemigo tiene <span id="vidas-enemigo">3</span> vidas</p>
+        </div>    
         
-    </section>
-
-    <section id="reiniciar">
-        <button id="boton-reiniciar">Reiniciar</button>
-    </section>
-    
-    
+        
+    </section>    
 </body>
 </html>

@@ -7,14 +7,15 @@ let vidasEnemigo = 3
 
 //funcion que se carga una vez que carga el html
 function iniciarJuego(){
-    let sectionReiniciar = document.getElementById("reiniciar")
-    sectionReiniciar.style.display = 'none'
-
-    let sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque")
+    let sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque") // para ocultar la parte de los ataques al principio del juego 
     sectionSeleccionarAtaque.style.display = 'none'
+
+    let sectionReiniciar = document.getElementById("reiniciar") // para habilitar la limpieza del html. 
+    sectionReiniciar.style.display = 'none'
 
     let botonAvatar = document.getElementById("boton-avatar")
     botonAvatar.addEventListener("click", seleccionarAvatar)
+
     let botonFuego = document.getElementById("boton-fuego")
     botonFuego.addEventListener('click',ataqueFuego)
     let botonAgua = document.getElementById("boton-agua")
@@ -26,57 +27,43 @@ function iniciarJuego(){
     botonReiniar.addEventListener('click', reiniciarJuego)
 
 }
-// se crea la variables con los avatares
+// se crea la variables con los avatares y se selecciona 
 function seleccionarAvatar(){
     let sectionSeleccionarAvatar = document.getElementById("seleccionar_avatar")
     sectionSeleccionarAvatar.style.display = 'none'
 
     let sectionSeleccionarAtaque = document.getElementById("seleccionar_ataque")
-    sectionSeleccionarAtaque.style.display = 'block'
+    sectionSeleccionarAtaque.style.display = 'flex'
 
-    let inputpez = document.getElementById("pez")
-    let inputarbol = document.getElementById("arbol")
-    let inputfosforo = document.getElementById("fosforo")
     let inputtiburon = document.getElementById("tiburon")
-    let inputtortuga = document.getElementById("tortuga")
+    let inputarbol = document.getElementById("arbol")
     let inputdragon = document.getElementById("dragon")
     let spanAvatarJugador = document.getElementById("avatar_jugador")
 
 // alertas segun la seleccion del avatar    
-    if (inputpez.checked) {
-        spanAvatarJugador.innerHTML = "pez"
+    if (inputtiburon.checked) {
+        spanAvatarJugador.innerHTML = "tiburon"
     }else if (inputarbol.checked) {
         spanAvatarJugador.innerHTML = "arbol"
-    }else if (inputfosforo.checked){
-        spanAvatarJugador.innerHTML = "fosforo"
-    }else if (inputtiburon.checked){
-        spanAvatarJugador.innerHTML = "tiburon"
-    }else if (inputtortuga.checked){
-        spanAvatarJugador.innerHTML = "tortuga"
     }else if (inputdragon.checked){
         spanAvatarJugador.innerHTML = "dragon"
     }else{
         alert ("selecciona un avatar")
+        let sectionSeleccionarAvatar = document.getElementById("seleccionar_avatar")
     }
 
     seleccionarAvatarEnemigo()
 }
 // seleccionar avatar enemigo
 function seleccionarAvatarEnemigo(){
-    let mascotaAleatorio = aleatoria(1,6)
+    let mascotaAleatorio = aleatoria(1,3)
     let spanAvatarEnemigo = document.getElementById("avatar_enemigo")
 
     if (mascotaAleatorio == 1){
-        spanAvatarEnemigo.innerHTML = "pez"
+        spanAvatarEnemigo.innerHTML = "tiburon"
     }else if (mascotaAleatorio == 2 ){
         spanAvatarEnemigo.innerHTML = "arbol"
     }else if (mascotaAleatorio == 3 ){
-        spanAvatarEnemigo.innerHTML = "fosforo"
-    }else if (mascotaAleatorio == 4 ){
-        spanAvatarEnemigo.innerHTML = "tiburon"
-    }else if (mascotaAleatorio == 5 ){
-        spanAvatarEnemigo.innerHTML = "tortuga"
-    }else if (mascotaAleatorio == 6 ){
         spanAvatarEnemigo.innerHTML = "dragon"
     }  
 }

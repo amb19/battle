@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+body {
+    font-family: 'Permanent Marker', cursive;
+    background-color: #DCF2F1;
+    font-size:larger;
+}
+
+#seleccionar_avatar, #titulos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo{
+    color: #0F1035;
+    font-size: 42px;
+}
+
+.subtitulo{
+    color: #365486;
+    font-size: 30px;
+}
+
+.avatars{
+    display: flex;
+    gap: 10px;
+}
+
+.tarjeta-de-avatar{
+    width: 160px;
+    height: 80px;
+    background: #7FC7D9;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: 0F1035;
+}
+
+.tarjeta-de-avatar img{
+    width: 60px;
+}
+input {
+    display: none;
+}
+
+#boton-avatar {
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    background: #7FC7D9;
+    border: 2px solid;
+    color: #0F1035;
+    font-family: 'Permanent Marker', cursive;
+    margin: 30px;
+}
+
+#seleccionar_ataque{
+    flex-direction: column;
+    align-items: center;
+
+}
+.boton-de-ataque{
+    width: 120px;
+    height: 40px;
+    border-radius: 20px;
+    background: #7FC7D9;
+    border: 2px solid;
+    color: #0F1035;
+    font-family: 'Permanent Marker', cursive;
+    margin: 15px;
+}
+
