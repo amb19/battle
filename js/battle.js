@@ -129,21 +129,28 @@ function revisarvidas() {
 }
 // funcion mensaje
 function crearMensaje(resultado){
-    let sectionMensajes = document.getElementById('mensajes')
+    let sectionMensajes = document.getElementById('resultado')
+    let ataqueJugador = document.getElementById('ataque-jugador')
+    let ataqueEnemigo = document.getElementById('ataque-enemigo')
 
-    let parrafo = document.createElement('p')
-    parrafo.innerHTML = 'Tu avatar ataco con: '+ataqueJugador+'; la mascota del enemigo ataco con: '+ ataqueEnemigo +' - '+ resultado
+    let nuevoataqueJugador = document.createElement('p')
+    let nuevoataqueEnemigo = document.createElement('p')
 
-    sectionMensajes.appendChild(parrafo)
+    sectionMensajes.innerHTML = resultado
+    nuevoataqueJugador.innerHTML = ataqueJugador
+    nuevoataqueEnemigo.innerHTML = ataqueEnemigo
+    
+    ataqueJugador.appendChild(nuevoataqueJugador)
+    ataqueEnemigo.appendChild(nuevoataqueEnemigo)
 }
 // funcion mensaje final
 function mensajeFinal(resultadoFinal){
-    let sectionMensajes = document.getElementById('mensajes')
+    let sectionMensajes = document.getElementById('resultado')
 
-    let parrafo = document.createElement('p')
-    parrafo.innerHTML = resultadoFinal
+    
+    sectionMensajes.innerHTML = resultadoFinal
 
-    sectionMensajes.appendChild(parrafo)
+    
 
     let botonAvatar = document.getElementById("boton-avatar")
     botonAvatar.disabled = true

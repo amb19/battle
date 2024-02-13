@@ -47,7 +47,7 @@ input {
     display: none;
 }
 
-#boton-avatar {
+#boton-avatar, #boton-reiniciar {
     width: 180px;
     height: 40px;
     border-radius: 20px;
@@ -74,3 +74,8 @@ input {
     margin: 15px;
 }
 
+.ataques{
+    display: grid;
+    grid-template-columns: 100px 100px;
+    justify-items: center;
+}
