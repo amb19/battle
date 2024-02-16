@@ -5,73 +5,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>battle</title>
-    <script src="./js/battle.js"></script>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body>
-    <section id="titulos">
-        <h1 class="titulo"> Battle 🔥💧🌱</h1>
-        <h2 class="subtitulo">Elige tu avatar</h2>
-    </section>
+    <body>
+        <section id="titulos">
+            <h1 class="titulo"> Battle 🔥💧🌱</h1>
+            <h2 class="subtitulo">Elige tu Avatar</h2>
+        </section>
 
-    <section id="seleccionar_avatar">
-        <div class="avatars">
-            <label class="tarjeta-de-avatar" for="tiburon">
-                <p>Tiburon</p>
-                <img src="./img/tiburon.png" alt="Tiburon">
-            </label>  
-            <input type="radio" name="avatar" id="tiburon" />
-
-            <label class="tarjeta-de-avatar" for="arbol">
-                <p>Arbol</p>
-                <img src="./img/arbol.png" alt="Arbol">
-            </label>
-            <input type="radio" name="avatar" id="arbol" />
-
-            <label class="tarjeta-de-avatar" for="dragon">
-                <p>Dragon</p>
-                <img src="./img/dragon.png" alt="Dragon">
-            </label>
-            <input type="radio" name="avatar" id="dragon" />
-        </div>
-        
-        <div>
-            <button id="boton-avatar">seleccionar</button>
-        </div>
-    </section>
-
-    <section id="seleccionar_ataque">
-        <h2 class="subtitulo">Elige tu ataque:</h2>
-        <div>
-            <button id="boton-fuego" class="boton-de-ataque"> Fuego 🔥</button>
-            <button id="boton-agua"class="boton-de-ataque"> Agua 💧</button>
-            <button id="boton-tierra"class="boton-de-ataque"> Tierra 🌱</button>
-        </div>
-
-        <div>
-            <section id="mensajes">
-                <p id="resultado"></p>
-            </section>
-
-            <section id="reiniciar">
-                <button id="boton-reiniciar">Reiniciar</button>
-            </section>
-        </div>
-        <div class="ataques">
-            <div>
-                <p id="vidas-avatar">3</p>
-                <p id="avatar_jugador"></p>
-                <div id="ataque-jugador"></div>
-            </div>
-            <div>
-                <p id="vidas-enemigo">3</p>
-                <p id="avatar_enemigo"></p>
-                <div id="ataque-enemigo"></div>
+        <section id="seleccionar-avatar">
+            <div id="contenedorTarjetas" class="avatars">
                 
-            </div> 
-        </div>    
-        
-        
-    </section>    
-</body>
+            </div>
+            
+            <div>
+                <button id="boton-avatar">Seleccionar</button>
+            </div>
+        </section>
+
+        <section id="seleccionar-ataque">
+            <h2 class="subtitulo">Elige tu Ataque:</h2>
+            <div id="contenedorAtaques" class="tarjeta-ataques">
+                
+            </div>
+
+            <div>
+                <section id="mensajes">
+                    <p id="resultado"></p>
+                </section>
+
+                <section id="reiniciar">
+                    <button id="boton-reiniciar">Reiniciar</button>
+                </section>
+            </div>
+            <div class="ofensiva">
+                <div class="ataques-jugador">
+                    <p id="vidas-avatar">0</p>
+                    <p id="avatar-jugador"></p>
+                    <div id="ataque-jugador"></div>
+                </div>
+                <div class="ataques-enemigo">
+                    <p id="vidas-enemigo">0</p>
+                    <p id="avatar-enemigo"></p>
+                    <div id="ataque-enemigo"></div>
+                </div> 
+            </div>    
+            
+            
+        </section> 
+        <script src="./js/battle.js"></script>   
+    </body>
 </html>

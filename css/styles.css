@@ -6,7 +6,7 @@ body {
     font-size:larger;
 }
 
-#seleccionar_avatar, #titulos{
+#seleccionar-avatar, #titulos{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,7 +22,7 @@ body {
     font-size: 30px;
 }
 
-.avatars{
+.avatars, .tarjeta-ataques {
     display: flex;
     gap: 10px;
 }
@@ -47,6 +47,11 @@ input {
     display: none;
 }
 
+input:checked + label {
+    background-color: red;
+
+}
+
 #boton-avatar, #boton-reiniciar {
     width: 180px;
     height: 40px;
@@ -58,7 +63,7 @@ input {
     margin: 30px;
 }
 
-#seleccionar_ataque{
+#seleccionar-ataque{
     flex-direction: column;
     align-items: center;
 
@@ -74,8 +79,23 @@ input {
     margin: 15px;
 }
 
-.ataques{
+.ofensiva{
     display: grid;
     grid-template-columns: 100px 100px;
     justify-items: center;
 }
+
+.ataques-jugador, .ataques-enemigo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+@media(max-width:500px){
+    .avatars, .tarjeta-ataques{
+        flex-direction: column;
+    }
+}
+
