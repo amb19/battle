@@ -151,14 +151,17 @@ function secuenciaAtaque(){
                 ataqueJugador.push("FUEGO")
                 console.log(ataqueJugador)
                 boton.style.background = "#112f58"
+                boton.disabled = true
             } else if (e.target.innerText === "💧"){
                 ataqueJugador.push("AGUA")
                 console.log(ataqueJugador)
                 boton.style.background = "#112f58"
+                boton.disabled = true
             } else {(e.target.innerText === "🌱")
             ataqueJugador.push("TIERRA")
                 console.log(ataqueJugador)
                 boton.style.background = "#112f58"
+                boton.disabled = true
             }
             ataqueAleatorioEnemigo()   
         })
@@ -254,10 +257,6 @@ function crearMensaje(resultado){
 // funcion mensaje final
 function mensajeFinal(resultadoFinal){
     sectionMensajes.innerHTML = resultadoFinal
-    
-    botonFuego.disabled = true
-    botonAgua.disabled = true
-    botonTierra.disabled = true
     sectionReiniciar.style.display = 'block'
 }
 // funcion aleatoria para jugada del enemigo

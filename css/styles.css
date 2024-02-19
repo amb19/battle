@@ -52,7 +52,7 @@ input:checked + label {
 
 }
 
-#boton-avatar, #boton-reiniciar {
+#boton-avatar, #boton-reiniciar  {
     width: 180px;
     height: 40px;
     border-radius: 20px;
@@ -61,6 +61,7 @@ input:checked + label {
     color: #0F1035;
     font-family: 'Permanent Marker', cursive;
     margin: 30px;
+    justify-content: space-around;
 }
 
 #seleccionar-ataque{
@@ -69,7 +70,7 @@ input:checked + label {
 
 }
 .boton-de-ataque{
-    width: 120px;
+    width: 80px;
     height: 40px;
     border-radius: 20px;
     background: #7FC7D9;
