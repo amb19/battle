@@ -18,6 +18,9 @@ const ataquedelEnemigo = document.getElementById("ataque-enemigo")
 const contenedorTarjetas = document.getElementById("contenedorTarjetas")
 const contenedorAtaques = document.getElementById("contenedorAtaques")
 
+const sectionVerMapa = document.getElementById("ver-mapa")
+const mapa = document.getElementById("mapa")
+
 //variable global
 let avatares = [] // esto es un array 
 let ataqueJugador = []
@@ -27,6 +30,7 @@ let inputtiburon
 let inputarbol
 let inputdragon
 let avatarJugador
+let avatarJugadorObjeto
 let ataquesavatar
 let ataquesAvatarEnemigo
 let botonFuego
@@ -39,20 +43,48 @@ let victoriasJugador = 0
 let victoriasEnemigo = 0
 let vidasAvatar = 3
 let vidasEnemigo = 3
+let lienzo = mapa.getContext("2d")
+let intervalo
+let mapaBackground = new Image() 
+mapaBackground.src = "../img/batte.map.png"
+
 
 //esto es una clase, con sus propiedades, atributos 
 class Avatar {
-    constructor(nombre,foto,vida){
+    constructor(nombre,foto,vida, fotomapa, x = 10, y = 10 ){
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
+        this.x = 20
+        this.y = 30
+        this.ancho = 40
+        this.alto = 40
+        this.mapaFotos = new Image()
+        this.mapaFotos.src = foto
+        this.velocidadX = 0
+        this.velocidadY = 0
     }
+
+    pintarAvatar(){
+        lienzo.drawImage(
+            this.mapaFotos,
+            this.x,
+            this.y,
+            this.ancho,
+            this.alto
+        )
+    }
+
 }
 
-let tiburon = new Avatar('Tiburon','./img/tiburon.png',3)
-let arbol = new Avatar('Arbol','./img/arbol.png',3)
-let dragon = new Avatar('Dragon','./img/dragon.png',3)
+let tiburon = new Avatar('Tiburon','./img/tiburon.png',3,'./img/tiburon.png')
+let arbol = new Avatar('Arbol','./img/arbol.png',3 , './img/arbol.png')
+let dragon = new Avatar('Dragon','./img/dragon.png',3,'./img/dragon.png')
+
+let tiburonEnemigo = new Avatar('Tiburon','./img/tiburon.png',3,'./img/tiburon.png',20,30)
+let arbolEnemigo = new Avatar('Arbol','./img/arbol.png',3 , './img/arbol.png',40,60)
+let dragonEnemigo = new Avatar('Dragon','./img/dragon.png',3,'./img/dragon.png',60,80)
 
 //objeto literal se contruyen de 0, no tienen una clase, solo guardan informacion 
 tiburon.ataques.push(
@@ -79,6 +111,7 @@ avatares.push(tiburon,arbol,dragon)
 //funcion que se carga una vez que carga el html
 function iniciarJuego(){
     sectionSeleccionarAtaque.style.display = 'none'
+    sectionVerMapa.style.display = 'none'
     //fucion para recorrer el arreglo, con una funcion fecha y creacin con ` templay literarios 
     avatares.forEach((avatar) => { 
         opcionDeAvatares = `
@@ -102,7 +135,10 @@ function iniciarJuego(){
 // se crea la variables con los avatares y se selecciona 
 function seleccionarAvatarJugador(){
     sectionSeleccionarAvatar.style.display = 'none'
-    sectionSeleccionarAtaque.style.display = 'flex'
+    //sectionSeleccionarAtaque.style.display = 'flex'
+    sectionVerMapa.style.display = 'flex'
+    iniciarMapa()
+        
     // alertas segun la seleccion del avatar    
     if (inputtiburon.checked) {
         spanAvatarJugador.innerHTML = inputtiburon.id // devuelte el valor del objeto inputtiburon.id
@@ -117,6 +153,8 @@ function seleccionarAvatarJugador(){
         alert ("selecciona un avatar")
     }
     extraerAtaques(avatarJugador)
+    sectionVerMapa.style.display = 'flex'
+    iniciarMapa()
     seleccionarAvatarEnemigo()
 }
 // funcion extraer ataques 
@@ -263,9 +301,77 @@ function mensajeFinal(resultadoFinal){
 function aleatoria(min,max){
     return Math.floor(Math.random()*(max - min + 1) + min )
 }
+function pintarCanvas(){
+
+    avatarJugadorObjeto.x = avatarJugadorObjeto.x + avatarJugadorObjeto.velocidadX
+    avatarJugadorObjeto.y = avatarJugadorObjeto.y + avatarJugadorObjeto.velocidadY
+    lienzo.clearRect(0,0,mapa.width, mapa.height )
+    lienzo.drawImage(
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )
+    avatarJugadorObjeto.pintarAvatar()
+}
+
+function moverDerecha(){
+    avatarJugadorObjeto.velocidadX = 5
+}
+function moverIzquierda(){
+    avatarJugadorObjeto.velocidadX = -5
+}
+function moverAbajo(){
+    avatarJugadorObjeto.velocidadY = 5
+}
+function moverArriba(){
+    avatarJugadorObjeto.velocidadY = -5
+}
+
+function detenermovimiento(){
+    avatarJugadorObjeto.velocidadX = 0
+    avatarJugadorObjeto.velocidadY = 0
+}
 // funcion reiniciar 
 function reiniciarJuego(){
     location.reload()
+}
+
+function sePresionoUnaTecla(event){
+    switch (event.key) {
+        case "ArrowUp":
+            moverArriba()
+            break;
+        case "ArrowDown":
+            moverAbajo()
+            break;    
+        case "ArrowLeft":
+            moverIzquierda()
+            break;
+        case "ArrowRight":
+            moverDerecha()
+            break;    
+        default:
+            break;
+    }
+}
+function iniciarMapa(){
+    mapa.width = 320
+    mapa.height = 240
+    avatarJugadorObjeto = obtenerObjetoAvatar(avatarJugador)
+    intervalo = setInterval(pintarCanvas,50)
+    window.addEventListener("keydown",sePresionoUnaTecla)
+    window.addEventListener("keyup",detenermovimiento)
+   
+}
+
+function obtenerObjetoAvatar() {
+    for (let i = 0; i < avatares.length; i++) {
+        if (avatarJugador === avatares[i].nombre){
+            return avatares[i]
+        }
+    }
 }
 //escucha los eventos desde el html 
 window.addEventListener("load", iniciarJuego )

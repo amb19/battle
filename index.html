@@ -22,6 +22,14 @@
                 <button id="boton-avatar">Seleccionar</button>
             </div>
         </section>
+        <section id="ver-mapa">
+            <h2 class="titulo"> Recorre el mapa con tu Avatar 🔥💧🌱</h2>
+            <canvas id="mapa"></canvas>
+            <button onpointerup="detenermovimiento()" onpointerdown="moverArriba()">Arriba</button>
+            <button onpointerup="detenermovimiento()" onpointerdown="moverIzquierda()">Izquierda</button>
+            <button onpointerup="detenermovimiento()" onpointerdown="moverAbajo()">Abajo</button>
+            <button onpointerup="detenermovimiento()" onpointerdown="moverDerecha()">Derecha</button>
+        </section>
 
         <section id="seleccionar-ataque">
             <h2 class="subtitulo">Elige tu Ataque:</h2>
