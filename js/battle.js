@@ -51,13 +51,13 @@ mapaBackground.src = "../img/batte.map.png"
 
 //esto es una clase, con sus propiedades, atributos 
 class Avatar {
-    constructor(nombre,foto,vida, fotomapa, x = 10, y = 10 ){
+    constructor(nombre,foto,vida, fotomapa, x = 210, y = 90 ){
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
-        this.x = 20
-        this.y = 30
+        this.x = x
+        this.y = y
         this.ancho = 40
         this.alto = 40
         this.mapaFotos = new Image()
@@ -82,9 +82,9 @@ let tiburon = new Avatar('Tiburon','./img/tiburon.png',3,'./img/tiburon.png')
 let arbol = new Avatar('Arbol','./img/arbol.png',3 , './img/arbol.png')
 let dragon = new Avatar('Dragon','./img/dragon.png',3,'./img/dragon.png')
 
-let tiburonEnemigo = new Avatar('Tiburon','./img/tiburon.png',3,'./img/tiburon.png',20,30)
-let arbolEnemigo = new Avatar('Arbol','./img/arbol.png',3 , './img/arbol.png',40,60)
-let dragonEnemigo = new Avatar('Dragon','./img/dragon.png',3,'./img/dragon.png',60,80)
+let tiburonEnemigo = new Avatar('Tiburon','./img/tiburon.png',3,'./img/tiburon.png',60,180)
+let arbolEnemigo = new Avatar('Arbol','./img/arbol.png',3 , './img/arbol.png',35,30)
+let dragonEnemigo = new Avatar('Dragon','./img/dragon.png',3,'./img/dragon.png',195,145)
 
 //objeto literal se contruyen de 0, no tienen una clase, solo guardan informacion 
 tiburon.ataques.push(
@@ -314,6 +314,14 @@ function pintarCanvas(){
         mapa.height
     )
     avatarJugadorObjeto.pintarAvatar()
+    tiburonEnemigo.pintarAvatar()
+    arbolEnemigo.pintarAvatar()
+    dragonEnemigo.pintarAvatar()
+    if(avatarJugadorObjeto.velocidadX !== 0 || avatarJugadorObjeto.velocidadY !== 0){
+        revisarColision(tiburonEnemigo)
+        revisarColision(arbolEnemigo)
+        revisarColision(dragonEnemigo)
+    }
 }
 
 function moverDerecha(){
@@ -373,5 +381,28 @@ function obtenerObjetoAvatar() {
         }
     }
 }
+function revisarColision(enemigo){
+    const arribaEnemigo = enemigo.y
+    const abajoEnemigo = enemigo.y + enemigo.alto
+    const derechaEnemigo = enemigo.x + enemigo.ancho
+    const izquierdaEnemigo = enemigo.x
+
+    const arribaAvatar = avatarJugadorObjeto.y
+    const abajoAvatar = avatarJugadorObjeto.y + avatarJugadorObjeto.alto
+    const derechaAvatar = avatarJugadorObjeto.x + avatarJugadorObjeto.ancho
+    const izquierdaAvatar = avatarJugadorObjeto.x
+
+    if (
+        abajoAvatar < arribaEnemigo || 
+        arribaAvatar > abajoEnemigo ||
+        derechaAvatar < izquierdaEnemigo ||
+        izquierdaAvatar > derechaEnemigo
+    ) {
+        return
+    }
+    detenermovimiento()
+    alert("Hay colision con: " + enemigo.nombre + " !" )
+}
+
 //escucha los eventos desde el html 
 window.addEventListener("load", iniciarJuego )
