@@ -97,15 +97,30 @@ input:checked + label {
     align-items: center;
     justify-content: center;
     }
-#mapa {
+
+#ver-mapa button {
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    background: #7FC7D9;
     border: 2px solid;
+    color: #0F1035;
+    font-family: 'Permanent Marker', cursive;
+    margin: 5px;
+    justify-content: space-around;
 }
-
-
 
 @media(max-width:500px){
     .avatars, .tarjeta-ataques{
         flex-direction: column;
     }
+}
+
+@media(max-width:360px){
+   #ver-mapa div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+   }
 }
 

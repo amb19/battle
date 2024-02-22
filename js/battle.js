@@ -21,6 +21,8 @@ const contenedorAtaques = document.getElementById("contenedorAtaques")
 const sectionVerMapa = document.getElementById("ver-mapa")
 const mapa = document.getElementById("mapa")
 
+const anchoMaximoDelMapa = 360
+
 //variable global
 let avatares = [] // esto es un array 
 let ataqueJugador = []
@@ -47,19 +49,29 @@ let lienzo = mapa.getContext("2d")
 let intervalo
 let mapaBackground = new Image() 
 mapaBackground.src = "../img/batte.map.png"
+let alturaQueBuscamos
+let anchoDelMapa = window.innerWidth - 20
 
+alturaQueBuscamos = anchoDelMapa * 360 / 400
+mapa.width = anchoDelMapa
+mapa.height = alturaQueBuscamos
+
+if (anchoDelMapa > anchoMaximoDelMapa) {
+    anchoDelMapa = anchoMaximoDelMapa -20
+}
 
 //esto es una clase, con sus propiedades, atributos 
 class Avatar {
-    constructor(nombre,foto,vida, fotomapa, x = 210, y = 90 ){
+    constructor(nombre,foto,vida, fotomapa){
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
-        this.x = x
-        this.y = y
         this.ancho = 40
         this.alto = 40
+        this.x = aleatoria(0,mapa.width - this.ancho)
+        this.y = aleatoria(0,mapa.height - this.alto)
+        
         this.mapaFotos = new Image()
         this.mapaFotos.src = foto
         this.velocidadX = 0
@@ -82,9 +94,9 @@ let tiburon = new Avatar('Tiburon','./img/tiburon.png',3,'./img/tiburon.png')
 let arbol = new Avatar('Arbol','./img/arbol.png',3 , './img/arbol.png')
 let dragon = new Avatar('Dragon','./img/dragon.png',3,'./img/dragon.png')
 
-let tiburonEnemigo = new Avatar('Tiburon','./img/tiburon.png',3,'./img/tiburon.png',60,180)
-let arbolEnemigo = new Avatar('Arbol','./img/arbol.png',3 , './img/arbol.png',35,30)
-let dragonEnemigo = new Avatar('Dragon','./img/dragon.png',3,'./img/dragon.png',195,145)
+let tiburonEnemigo = new Avatar('Tiburon','./img/tiburon.png',3,'./img/tiburon.png')
+let arbolEnemigo = new Avatar('Arbol','./img/arbol.png',3, './img/arbol.png')
+let dragonEnemigo = new Avatar('Dragon','./img/dragon.png',3,'./img/dragon.png')
 
 //objeto literal se contruyen de 0, no tienen una clase, solo guardan informacion 
 tiburon.ataques.push(
@@ -92,15 +104,27 @@ tiburon.ataques.push(
     {nombre: '🔥', id: 'boton-fuego'},
     {nombre: '🌱', id: 'boton-tierra'},
 )
-
+tiburonEnemigo.ataques.push(
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '🌱', id: 'boton-tierra'},
+)
 arbol.ataques.push(
     {nombre: '🌱', id: 'boton-tierra'},
     {nombre: '🔥', id: 'boton-fuego'},
     {nombre: '💧', id: 'boton-agua'},
-    
 )
-
+arbolEnemigo.ataques.push(
+    {nombre: '🌱', id: 'boton-tierra'},
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '💧', id: 'boton-agua'},
+)
 dragon.ataques.push(
+    {nombre: '🔥', id: 'boton-fuego'},
+    {nombre: '💧', id: 'boton-agua'},
+    {nombre: '🌱', id: 'boton-tierra'},
+)
+dragonEnemigo.ataques.push(
     {nombre: '🔥', id: 'boton-fuego'},
     {nombre: '💧', id: 'boton-agua'},
     {nombre: '🌱', id: 'boton-tierra'},
@@ -135,10 +159,7 @@ function iniciarJuego(){
 // se crea la variables con los avatares y se selecciona 
 function seleccionarAvatarJugador(){
     sectionSeleccionarAvatar.style.display = 'none'
-    //sectionSeleccionarAtaque.style.display = 'flex'
-    sectionVerMapa.style.display = 'flex'
-    iniciarMapa()
-        
+
     // alertas segun la seleccion del avatar    
     if (inputtiburon.checked) {
         spanAvatarJugador.innerHTML = inputtiburon.id // devuelte el valor del objeto inputtiburon.id
@@ -155,7 +176,6 @@ function seleccionarAvatarJugador(){
     extraerAtaques(avatarJugador)
     sectionVerMapa.style.display = 'flex'
     iniciarMapa()
-    seleccionarAvatarEnemigo()
 }
 // funcion extraer ataques 
 function extraerAtaques(avatarJugador){
@@ -196,7 +216,7 @@ function secuenciaAtaque(){
                 boton.style.background = "#112f58"
                 boton.disabled = true
             } else {(e.target.innerText === "🌱")
-            ataqueJugador.push("TIERRA")
+                ataqueJugador.push("TIERRA")
                 console.log(ataqueJugador)
                 boton.style.background = "#112f58"
                 boton.disabled = true
@@ -204,20 +224,21 @@ function secuenciaAtaque(){
             ataqueAleatorioEnemigo()   
         })
     })
-   
 }
 
 // seleccionar avatar enemigo
-function seleccionarAvatarEnemigo(){
-    let mascotaAleatorio = aleatoria(0,avatares.length -1)
+function seleccionarAvatarEnemigo(enemigo){
+    //let mascotaAleatorio = aleatoria(0,avatares.length -1)
 
-    spanAvatarEnemigo.innerHTML = avatares[mascotaAleatorio].nombre
-    ataquesAvatarEnemigo = avatares[mascotaAleatorio].ataques
+    spanAvatarEnemigo.innerHTML = enemigo.nombre
+    ataquesAvatarEnemigo = enemigo.ataques
     secuenciaAtaque()
 }
 
 function ataqueAleatorioEnemigo(){
+    console.log("ataques del avatar", ataquesAvatarEnemigo)
     let ataqueAleatorio = aleatoria(0,ataquesAvatarEnemigo.length -1)
+    
 
     if (ataqueAleatorio == 0 ){
         ataqueEnemigo.push('FUEGO')
@@ -302,7 +323,6 @@ function aleatoria(min,max){
     return Math.floor(Math.random()*(max - min + 1) + min )
 }
 function pintarCanvas(){
-
     avatarJugadorObjeto.x = avatarJugadorObjeto.x + avatarJugadorObjeto.velocidadX
     avatarJugadorObjeto.y = avatarJugadorObjeto.y + avatarJugadorObjeto.velocidadY
     lienzo.clearRect(0,0,mapa.width, mapa.height )
@@ -337,7 +357,7 @@ function moverArriba(){
     avatarJugadorObjeto.velocidadY = -5
 }
 
-function detenermovimiento(){
+function detenerMovimiento(){
     avatarJugadorObjeto.velocidadX = 0
     avatarJugadorObjeto.velocidadY = 0
 }
@@ -365,13 +385,12 @@ function sePresionoUnaTecla(event){
     }
 }
 function iniciarMapa(){
-    mapa.width = 320
-    mapa.height = 240
+    /*mapa.width = 320
+    mapa.height = 240*/
     avatarJugadorObjeto = obtenerObjetoAvatar(avatarJugador)
     intervalo = setInterval(pintarCanvas,50)
     window.addEventListener("keydown",sePresionoUnaTecla)
-    window.addEventListener("keyup",detenermovimiento)
-   
+    window.addEventListener("keyup",detenerMovimiento)
 }
 
 function obtenerObjetoAvatar() {
@@ -400,8 +419,12 @@ function revisarColision(enemigo){
     ) {
         return
     }
-    detenermovimiento()
-    alert("Hay colision con: " + enemigo.nombre + " !" )
+    detenerMovimiento()
+    clearInterval(intervalo)
+    console.log("se detecto una colision");
+    sectionSeleccionarAtaque.style.display = 'flex' // para mostrar la parte de ataques
+    sectionVerMapa.style.display = "none" // ocultar el mapa
+    seleccionarAvatarEnemigo(enemigo)
 }
 
 //escucha los eventos desde el html 

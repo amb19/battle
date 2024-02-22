@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>battle</title>
     <link rel="stylesheet" href="./css/styles.css">
-</head>
+    </head>
     <body>
         <section id="titulos">
             <h1 class="titulo"> Battle 🔥💧🌱</h1>
@@ -23,12 +23,15 @@
             </div>
         </section>
         <section id="ver-mapa">
-            <h2 class="titulo"> Recorre el mapa con tu Avatar 🔥💧🌱</h2>
+            <h2 class="subtitulo"> Recorre el mapa con tu Avatar 🔥💧🌱</h2>
             <canvas id="mapa"></canvas>
             <button onpointerup="detenermovimiento()" onpointerdown="moverArriba()">Arriba</button>
-            <button onpointerup="detenermovimiento()" onpointerdown="moverIzquierda()">Izquierda</button>
-            <button onpointerup="detenermovimiento()" onpointerdown="moverAbajo()">Abajo</button>
-            <button onpointerup="detenermovimiento()" onpointerdown="moverDerecha()">Derecha</button>
+            <div> 
+                <button onpointerup="detenermovimiento()" onpointerdown="moverIzquierda()">Izquierda</button>
+                <button onpointerup="detenermovimiento()" onpointerdown="moverAbajo()">Abajo</button>
+                <button onpointerup="detenermovimiento()" onpointerdown="moverDerecha()">Derecha</button>
+            </div>
+            
         </section>
 
         <section id="seleccionar-ataque">
