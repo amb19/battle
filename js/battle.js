@@ -24,6 +24,7 @@ const mapa = document.getElementById("mapa")
 const anchoMaximoDelMapa = 360
 
 //variable global
+let jugadorId = null
 let avatares = [] // esto es un array 
 let ataqueJugador = []
 let ataqueEnemigo = []
@@ -153,13 +154,25 @@ function iniciarJuego(){
     } )
    
     botonAvatar.addEventListener("click", seleccionarAvatarJugador)
-    
     botonReiniar.addEventListener('click', reiniciarJuego)
+
+    unirseAlJuego()
+}
+
+function unirseAlJuego(){
+    fetch("http://192.168.0.223:8085/unirse")
+        .then(function(res){
+            if (res.ok){
+                res.text()
+                    .then(function(respuesta){
+                        console.log(respuesta)
+                        jugadorId = respuesta
+                    })
+            }
+        })
 }
 // se crea la variables con los avatares y se selecciona 
 function seleccionarAvatarJugador(){
-    sectionSeleccionarAvatar.style.display = 'none'
-
     // alertas segun la seleccion del avatar    
     if (inputtiburon.checked) {
         spanAvatarJugador.innerHTML = inputtiburon.id // devuelte el valor del objeto inputtiburon.id
@@ -172,10 +185,27 @@ function seleccionarAvatarJugador(){
         avatarJugador = inputdragon.id
     }else{
         alert ("selecciona un avatar")
+        return
     }
+    sectionSeleccionarAvatar.style.display = 'none'
+
+    seleccionarAvatar(avatarJugador)
+
     extraerAtaques(avatarJugador)
     sectionVerMapa.style.display = 'flex'
     iniciarMapa()
+}
+
+function seleccionarAvatar(avatarJugador){
+    fetch(`http://192.168.0.223:8085/avatar/${jugadorId}`,{
+        method:"post",
+        headers: {
+            "content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            avatar: avatarJugador
+        })
+    })
 }
 // funcion extraer ataques 
 function extraerAtaques(avatarJugador){
@@ -334,6 +364,8 @@ function pintarCanvas(){
         mapa.height
     )
     avatarJugadorObjeto.pintarAvatar()
+    enviarPosicion(avatarJugadorObjeto.x,avatarJugadorObjeto.y) 
+
     tiburonEnemigo.pintarAvatar()
     arbolEnemigo.pintarAvatar()
     dragonEnemigo.pintarAvatar()
@@ -342,6 +374,19 @@ function pintarCanvas(){
         revisarColision(arbolEnemigo)
         revisarColision(dragonEnemigo)
     }
+}
+
+function enviarPosicion(x,y){
+    fetch(`http://192.168.0.223:8085/avatar/${jugadorId}/posicion`, {
+        method:"post",
+        headers: {
+            "content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            x,
+            y
+        }) 
+    })
 }
 
 function moverDerecha(){
